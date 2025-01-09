@@ -109,3 +109,91 @@ footer {
     font-size: 14px;
     border-radius: 4px;
 }
+
+/* Responsive Styles */
+
+/* For Mobile Devices */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .filter-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    .count-box {
+        font-size: 18px;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
+
+/* For Tablets (Portrait) */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .filter-section {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .filter-section label {
+        font-size: 14px;
+    }
+
+    .filter-section input {
+        width: 48%;
+    }
+
+    table th, table td {
+        padding: 10px;
+    }
+
+    .count-box {
+        font-size: 18px;
+    }
+
+    footer {
+        font-size: 13px;
+    }
+}
+
+/* For Laptops and Desktops */
+@media (min-width: 1024px) {
+    .container {
+        width: 80%;
+    }
+
+    .filter-section {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .filter-section input {
+        width: 200px;
+    }
+
+    table th, table td {
+        padding: 12px;
+    }
+
+    .count-box {
+        font-size: 20px;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+}
