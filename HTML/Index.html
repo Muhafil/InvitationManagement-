@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation Management</title>
+    <link rel="stylesheet" href="../CSS/Main.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Invitation Management</h1>
+
+        <div class="filter-section">
+            <label for="area-filter">Filter by Area:</label>
+            <input type="text" id="area-filter" placeholder="Enter area name">
+
+            <label for="name-filter">Filter by Family Name:</label>
+            <input type="text" id="name-filter" placeholder="Enter family name">
+        </div>
+
+        <table id="family-table">
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Family Name</th>
+                    <th>Total Members</th>
+                    <th>Invite</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added -->
+            </tbody>
+        </table>
+
+        <div class="count-box">
+            Total Invited: <span id="total-invited">0</span>
+        </div>
+    </div>
+    
+    <footer>
+        All rights reserved &copy; TechWithMuhafil
+    </footer>
+
+    <script src="../JavaScript/Main.js"></script>
+</body>
+
+</html>
