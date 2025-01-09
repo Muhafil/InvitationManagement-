@@ -2,6 +2,8 @@ const areaFilter = document.getElementById('area-filter');
 const nameFilter = document.getElementById('name-filter');
 const familyTable = document.getElementById('family-table');
 const totalInvitedSpan = document.getElementById('total-invited');
+const totalHaldiInvitedSpan = document.getElementById('total-haldi-invited');
+const totalWalimaInvitedSpan = document.getElementById('total-walima-invited');
 
 // Define family data for "Gothda" and "Ranpur" areas
 const families = [
@@ -578,7 +580,6 @@ const families = [
     { name: 'Saiyed Kazamali Pyaresahab Bukhari', area: 'Gothda', members: 2 },
 
 ];
-
 // Function to render the table based on filtered data
 function renderTable() {
     const tbody = familyTable.querySelector('tbody');
@@ -598,7 +599,8 @@ function renderTable() {
             <td>${family.area}</td>
             <td>${family.name}</td>
             <td>${family.members}</td>
-            <td><input type="number" min="0" max="${family.members}" value="0" class="invite-input"></td>
+            <td><input type="number" min="0" max="${family.members}" value="0" class="haldi-invite-input"></td>
+            <td><input type="number" min="0" max="${family.members}" value="0" class="walima-invite-input"></td>
         `;
         tbody.appendChild(row);
     });
@@ -608,20 +610,31 @@ function renderTable() {
 
 // Attach input listeners for "invite" inputs
 function attachInputListeners() {
-    const inputs = document.querySelectorAll('.invite-input');
-    inputs.forEach(input => {
-        input.addEventListener('input', updateTotalInvited);
-    });
+    const haldiInputs = document.querySelectorAll('.haldi-invite-input');
+    const walimaInputs = document.querySelectorAll('.walima-invite-input');
+    
+    haldiInputs.forEach(input => input.addEventListener('input', updateTotalInvited));
+    walimaInputs.forEach(input => input.addEventListener('input', updateTotalInvited));
 }
 
 // Update total invited count when inputs change
 function updateTotalInvited() {
-    let total = 0;
-    const inputs = document.querySelectorAll('.invite-input');
-    inputs.forEach(input => {
-        total += parseInt(input.value) || 0;
+    let haldiTotal = 0;
+    let walimaTotal = 0;
+    
+    const haldiInputs = document.querySelectorAll('.haldi-invite-input');
+    const walimaInputs = document.querySelectorAll('.walima-invite-input');
+    
+    haldiInputs.forEach(input => {
+        haldiTotal += parseInt(input.value) || 0;
     });
-    totalInvitedSpan.textContent = total;
+
+    walimaInputs.forEach(input => {
+        walimaTotal += parseInt(input.value) || 0;
+    });
+
+    totalHaldiInvitedSpan.textContent = haldiTotal;
+    totalWalimaInvitedSpan.textContent = walimaTotal;
 }
 
 // Event listeners for filter inputs

@@ -29,13 +29,13 @@ h1 {
 .filter-section {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Adds space between each label-input pair */
+    gap: 15px;
     margin-bottom: 20px;
 }
 
 .filter-section label {
     font-weight: bold;
-    margin-bottom: 5px; /* Space between label and input */
+    margin-bottom: 5px;
     text-align: center;
 }
 
@@ -43,7 +43,7 @@ h1 {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100%; /* Makes the input fields take up the available width */
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -111,17 +111,10 @@ footer {
 }
 
 /* Responsive Styles */
-
-/* For Mobile Devices */
 @media (max-width: 600px) {
     .container {
         width: 100%;
         padding: 15px;
-    }
-
-    .filter-section {
-        flex-direction: column;
-        gap: 10px;
     }
 
     table th, table td {
@@ -130,10 +123,6 @@ footer {
 
     .count-box {
         font-size: 18px;
-    }
-
-    footer {
-        font-size: 12px;
     }
 }
 
@@ -144,29 +133,12 @@ footer {
         padding: 20px;
     }
 
-    .filter-section {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .filter-section label {
-        font-size: 14px;
-    }
-
-    .filter-section input {
-        width: 48%;
-    }
-
     table th, table td {
         padding: 10px;
     }
 
     .count-box {
         font-size: 18px;
-    }
-
-    footer {
-        font-size: 13px;
     }
 }
 
@@ -176,24 +148,11 @@ footer {
         width: 80%;
     }
 
-    .filter-section {
-        flex-direction: row;
-        justify-content: flex-start;
-    }
-
-    .filter-section input {
-        width: 200px;
-    }
-
     table th, table td {
         padding: 12px;
     }
 
     .count-box {
         font-size: 20px;
-    }
-
-    footer {
-        font-size: 14px;
     }
 }
