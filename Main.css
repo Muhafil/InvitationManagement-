@@ -26,6 +26,7 @@ h1 {
     color: #2c3e50;
 }
 
+/* Filter section */
 .filter-section {
     display: flex;
     flex-direction: column;
@@ -47,6 +48,7 @@ h1 {
     box-sizing: border-box;
 }
 
+/* Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -70,6 +72,52 @@ th {
     z-index: 1;
 }
 
+td input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+td input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Summary Area Styling */
+#summary-content {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#summary-content div {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#summary-content div strong {
+    color: #333;
+}
+
+#summary-content div:nth-child(odd) {
+    background-color: #e9f5ff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#summary-content div:nth-child(even) {
+    background-color: #d6f0d1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Count Box Styling */
 .count-box {
     font-size: 20px;
     margin-top: 15px;
@@ -78,7 +126,7 @@ th {
     font-weight: bold;
 }
 
-/* Pagination */
+/* Pagination Styling */
 .pagination {
     display: flex;
     justify-content: center;

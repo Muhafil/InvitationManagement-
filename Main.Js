@@ -580,27 +580,37 @@ const families = [
     { name: 'Saiyed Kazamali Pyaresahab Bukhari', area: 'Gothda', members: 2 },
 
 ];
+let inviteCounts = {}; // To store Haldi and Walima invite values by family ID
+
 // Function to render the table based on filtered data
 function renderTable() {
     const tbody = familyTable.querySelector('tbody');
     tbody.innerHTML = ''; // Clear the current table rows
 
-    // Filter families based on area and name input
+    // Initialize unique IDs for each family if not already assigned
+    families.forEach((family, index) => {
+        if (!family.id) {
+            family.id = index + 1; // Assign ID based on index (1, 2, 3...)
+        }
+    });
+
     const filteredFamilies = families.filter(family => {
         const matchesArea = family.area.toLowerCase().includes(areaFilter.value.toLowerCase());
         const matchesName = family.name.toLowerCase().includes(nameFilter.value.toLowerCase());
         return matchesArea && matchesName;
     });
 
-    // Create table rows for each filtered family
     filteredFamilies.forEach(family => {
         const row = document.createElement('tr');
+        const haldiValue = inviteCounts[family.id]?.haldi || 0;
+        const walimaValue = inviteCounts[family.id]?.walima || 0;
+        row.dataset.id = family.id; // Store ID in row for easy reference
         row.innerHTML = `
             <td>${family.area}</td>
             <td>${family.name}</td>
             <td>${family.members}</td>
-            <td><input type="number" min="0" max="${family.members}" value="0" class="haldi-invite-input"></td>
-            <td><input type="number" min="0" max="${family.members}" value="0" class="walima-invite-input"></td>
+            <td><input type="number" min="0" max="${family.members}" value="${haldiValue}" class="haldi-invite-input" data-family-id="${family.id}"></td>
+            <td><input type="number" min="0" max="${family.members}" value="${walimaValue}" class="walima-invite-input" data-family-id="${family.id}"></td>
         `;
         tbody.appendChild(row);
     });
@@ -610,31 +620,63 @@ function renderTable() {
 
 // Attach input listeners for "invite" inputs
 function attachInputListeners() {
-    const haldiInputs = document.querySelectorAll('.haldi-invite-input');
-    const walimaInputs = document.querySelectorAll('.walima-invite-input');
-    
-    haldiInputs.forEach(input => input.addEventListener('input', updateTotalInvited));
-    walimaInputs.forEach(input => input.addEventListener('input', updateTotalInvited));
+    document.querySelectorAll('.haldi-invite-input, .walima-invite-input').forEach(input => {
+        input.addEventListener('input', () => {
+            const familyId = input.getAttribute('data-family-id');
+            if (!inviteCounts[familyId]) {
+                inviteCounts[familyId] = { haldi: 0, walima: 0 };
+            }
+            if (input.classList.contains('haldi-invite-input')) {
+                inviteCounts[familyId].haldi = parseInt(input.value) || 0;
+            } else {
+                inviteCounts[familyId].walima = parseInt(input.value) || 0;
+            }
+            updateTotalInvited();
+            updateSummary();
+        });
+    });
 }
 
 // Update total invited count when inputs change
 function updateTotalInvited() {
     let haldiTotal = 0;
     let walimaTotal = 0;
-    
-    const haldiInputs = document.querySelectorAll('.haldi-invite-input');
-    const walimaInputs = document.querySelectorAll('.walima-invite-input');
-    
-    haldiInputs.forEach(input => {
-        haldiTotal += parseInt(input.value) || 0;
-    });
 
-    walimaInputs.forEach(input => {
-        walimaTotal += parseInt(input.value) || 0;
+    Object.values(inviteCounts).forEach(({ haldi, walima }) => {
+        haldiTotal += haldi;
+        walimaTotal += walima;
     });
 
     totalHaldiInvitedSpan.textContent = haldiTotal;
     totalWalimaInvitedSpan.textContent = walimaTotal;
+}
+
+// Update summary area-wise
+function updateSummary() {
+    const summaryContent = document.getElementById('summary-content');
+    const areaSummary = {};
+    let totalMembersCount = 0; // Variable to hold total members across all areas
+
+    families.forEach(({ area, members, id }) => {
+        if (!areaSummary[area]) {
+            areaSummary[area] = { members: 0, haldi: 0, walima: 0 };
+        }
+        areaSummary[area].members += members;
+        totalMembersCount += members;
+
+        const { haldi = 0, walima = 0 } = inviteCounts[id] || {};
+        areaSummary[area].haldi += haldi;
+        areaSummary[area].walima += walima;
+    });
+
+    summaryContent.innerHTML = `<div><strong>Total Members: ${totalMembersCount}</strong></div>`;
+
+    for (const area in areaSummary) {
+        summaryContent.innerHTML += `
+            <div><strong>${area}</strong>: Total Members: ${areaSummary[area].members}, 
+            Haldi: ${areaSummary[area].haldi}, Walima: ${areaSummary[area].walima}</div>
+        `;
+    }
 }
 
 // Event listeners for filter inputs
